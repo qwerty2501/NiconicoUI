@@ -103,6 +103,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\..\..\NiconicoText\NiconicoText\Onds.Niconico.Data.Text\Onds.Niconico.Data.Text.csproj">
+      <Project>{ff673ebd-b0e2-4e79-b2b9-1d77c48565c9}</Project>
+      <Name>Onds.Niconico.Data.Text</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Onds.Niconico.UI.WinRT\Onds.Niconico.UI.WinRT.csproj">
       <Project>{2ecb16f5-f36d-44d8-bfe4-a5422908d315}</Project>
       <Name>Onds.Niconico.UI.WinRT</Name>

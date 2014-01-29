@@ -5,9 +5,19 @@
     xmlns:local="using:Onds.Niconico.UI.WinRT.Test"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="using:Onds.Niconico.UI"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <RichTextBlock FontSize="120">
+            <Paragraph>
+                <Run>
+                    text
+                </Run>
+                <nc:NiconicoWebTextSpan>
+                    test
+                </nc:NiconicoWebTextSpan>
+            </Paragraph>
+        </RichTextBlock>
     </Grid>
 </Page>
