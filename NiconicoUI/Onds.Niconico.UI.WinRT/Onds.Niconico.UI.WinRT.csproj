@@ -110,7 +110,7 @@
   <ItemGroup>
     <Compile Include="NiconicoWebTextSpan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Extentions\NiconicoTextColorUtility.cs" />
+    <Compile Include="Extentions\NiconicoTextColorExtentions.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

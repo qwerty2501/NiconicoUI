@@ -17,7 +17,7 @@ namespace Onds.Niconico.UI.Extentions
 
 
 
-    public static class NiconicoTextColorUtility
+    public static class NiconicoTextColorExtentions
     {
 
         public static Color ToPlatFormColor(this NiconicoTextColor color)
