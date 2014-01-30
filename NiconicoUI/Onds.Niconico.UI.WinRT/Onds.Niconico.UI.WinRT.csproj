@@ -114,6 +114,7 @@
     <Compile Include="NiconicoWebTextSpan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extentions\NiconicoTextColorExtentions.cs" />
+    <Compile Include="ViewNiconicoTextType.cs" />
     <Compile Include="ViewNiconicoWebTextAlgorithm.cs" />
     <Compile Include="ViewNiconicoWebTextArgs.cs" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using Onds.Niconico.Data.Text;
+using Onds.Niconico.UI.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,7 @@ namespace Onds.Niconico.UI
             }
         }
 
-        private static void applyLinkSegmentToInline<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args,object sourceText)
+        private static void applyLinkSegmentToInlines<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args,object sourceText)
             where T : IReadOnlyNiconicoWebTextSegment
         {
 
@@ -56,7 +57,7 @@ namespace Onds.Niconico.UI
             });
         }
 
-        private static void applyAnchorLinkToInline<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args, object sourceText)
+        private static void applyAnchorLinkToInlines<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args, object sourceText)
             where T : IReadOnlyNiconicoWebTextSegment
         {
             if (args.ViewFriendly)
@@ -69,6 +70,13 @@ namespace Onds.Niconico.UI
             else
             {
                 var span = new Span();
+                span.Inlines.Add(new Run { Text = NiconicoWebTextConstant.htmlAnchorStart });
+                applyLinkToInlineBase(inlines, segment, args, sourceText, (link) =>
+                {
+                    link.Inlines.Add(new Run { Text = segment.Url.OriginalString });
+                });
+                span.Inlines.Add(new Run { Text = NiconicoWebTextConstant.htmlAnchorEnd });
+                applyToSpan(span, segment.Segments, args, sourceText);
 
             }
 
@@ -87,13 +95,13 @@ namespace Onds.Niconico.UI
             inlines.Add(link);
         }
 
-        private static void applySegmentToInline<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args)
+        private static void applySegmentToInlines<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args)
             where T : IReadOnlyNiconicoWebTextSegment
         {
             inlines.Add(new Run { Text = getViewString(segment, args) });
         }
 
-        private static void applyLineBreakSegmentToInline<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args)
+        private static void applyLineBreakSegmentToInlines<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args)
             where T : IReadOnlyNiconicoWebTextSegment
         {
             var viewText = getViewString(segment, args);
@@ -107,6 +115,14 @@ namespace Onds.Niconico.UI
                 inlines.Add(new Run { Text = viewText });
             }
         }
+
+        private static void applyFontElementToInlines<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args, object sourceText)
+            where T : IReadOnlyNiconicoWebTextSegment
+        {
+
+
+        }
+
 
         private static void applyToSpan<T>(Span span, IReadOnlyList<T> segments, ViewNiconicoWebTextArgs args,object sourceText)
             where T : IReadOnlyNiconicoWebTextSegment
@@ -126,20 +142,20 @@ namespace Onds.Niconico.UI
                     case NiconicoWebTextSegmentType.Url:
                     case NiconicoWebTextSegmentType.UserName:
                     case NiconicoWebTextSegmentType.VideoId:
-                        applyLinkSegmentToInline(span.Inlines, segment, args,sourceText);
+                        applyLinkSegmentToInlines(span.Inlines, segment, args,sourceText);
                         break;
 
                     case NiconicoWebTextSegmentType.Plain:
-                        applySegmentToInline(span.Inlines, segment, args);
+                        applySegmentToInlines(span.Inlines, segment, args);
                         break;
 
 
                     case NiconicoWebTextSegmentType.LineBreak:
-                        applyLineBreakSegmentToInline(span.Inlines, segment, args);
+                        applyLineBreakSegmentToInlines(span.Inlines, segment, args);
                         break;
 
                     case NiconicoWebTextSegmentType.HtmlAnchorElement:
-                        applyAnchorLinkToInline(span.Inlines, segment, args, sourceText);
+                        applyAnchorLinkToInlines(span.Inlines, segment, args, sourceText);
                         break;
 
                     case NiconicoWebTextSegmentType.HtmlBoldElement:

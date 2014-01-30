@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace Onds.Niconico.UI.Constants
 {
-    class NiconicoWebTextConstant
+    internal class NiconicoWebTextConstant
     {
+        internal const string htmlElementStart = "<";
+
+        internal const string htmlElementEnd = ">";
+
+        internal const string htmlAnchorStart = htmlElementStart + @"a href=""";
+
+        internal const string htmlAnchorEnd = @"</a>";
+
     }
 }
