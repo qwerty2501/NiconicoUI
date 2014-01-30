@@ -100,11 +100,8 @@ namespace Onds.Niconico.UI
         private void updateViewText()
         {
             var text = this.Text;
-
-            
-
             base.Inlines.Clear();
-            ApplyToSpan(this, TextToSegments(text,OnParseText),this.ViewFriendly);
+            ApplyToSpan(this, TextToSegments(text,OnParseText),new ViewNiconicoWebTextArgs(this.ViewFriendly));
         }
 
 
@@ -124,10 +121,10 @@ namespace Onds.Niconico.UI
             }
         }
 
-        internal static string GetViewString<T>(T segment, bool viewFriendly)
+        internal static string GetViewString<T>(T segment, ViewNiconicoWebTextArgs args)
             where T:IReadOnlyNiconicoWebTextSegment
         {
-            if (viewFriendly)
+            if (args.ViewFriendly)
             {
                 return segment.FriendlyText;
             }
@@ -137,10 +134,22 @@ namespace Onds.Niconico.UI
             }
         }
 
-        private static void applyLinkTextToInline(Inline inline,)
+        private static void applyLinkSegmentToInline<T>(InlineCollection inlines,T segment,ViewNiconicoWebTextArgs args)
+            where T : IReadOnlyNiconicoWebTextSegment
+        {
+            var link = new Hyperlink();
+            link.Inlines.Add(new Run { Text = GetViewString(segment, args) });
+            inlines.Add(link);
+        }
 
+        private static void applySegmentToInline<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args)
+            where T : IReadOnlyNiconicoWebTextSegment
+        {
+            inlines.Add(new Run { Text = GetViewString(segment, args) });
+        }
 
-        internal static void ApplyToSpan(Span span, IReadOnlyList<IReadOnlyNiconicoWebTextSegment> segments,bool viewFriendly)
+        internal static void ApplyToSpan<T>(Span span, IReadOnlyList<T> segments,ViewNiconicoWebTextArgs args)
+            where T : IReadOnlyNiconicoWebTextSegment
         {
             foreach (var segment in segments)
             {
@@ -158,13 +167,11 @@ namespace Onds.Niconico.UI
                     case NiconicoWebTextSegmentType.Url:
                     case NiconicoWebTextSegmentType.UserName:
                     case NiconicoWebTextSegmentType.VideoId:
-                        var link = new Hyperlink();
-                        link.Inlines.Add(new Run { Text = GetViewString(segment, viewFriendly) });
-                        span.Inlines.Add(link);
+                        applyLinkSegmentToInline(span.Inlines, segment, args);
                         break;
 
                     case NiconicoWebTextSegmentType.Plain:
-                        span.Inlines.Add(new Run { Text = GetViewString(segment, viewFriendly) });
+                        applySegmentToInline(span.Inlines, segment, args);
                         break;
 
                     default:

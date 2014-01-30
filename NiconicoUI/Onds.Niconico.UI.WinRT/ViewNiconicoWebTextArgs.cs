@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Onds.Niconico.UI
 {
-    class ViewNiconicoWebTextArgs
+    internal class ViewNiconicoWebTextArgs
     {
+        internal ViewNiconicoWebTextArgs(bool viewFriendly)
+        {
+            this.ViewFriendly = viewFriendly;
+        }
+
+        internal bool ViewFriendly { get; private set; }
     }
 }
