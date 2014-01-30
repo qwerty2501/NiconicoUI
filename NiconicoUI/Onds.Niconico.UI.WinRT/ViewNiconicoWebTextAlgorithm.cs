@@ -59,10 +59,20 @@ namespace Onds.Niconico.UI
         private static void applyAnchorLinkToInline<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args, object sourceText)
             where T : IReadOnlyNiconicoWebTextSegment
         {
-            applyLinkToInlineBase(inlines, segment, args, sourceText, (link) =>
+            if (args.ViewFriendly)
             {
-                applyToSpan(link, segment.Segments, args, sourceText);
-            });
+                applyLinkToInlineBase(inlines, segment, args, sourceText, (link) =>
+                {
+                    applyToSpan(link, segment.Segments, args, sourceText);
+                });
+            }
+            else
+            {
+                var span = new Span();
+
+            }
+
+            
         }
 
         private static void applyLinkToInlineBase<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args, object sourceText, Action<Hyperlink> addAction)
@@ -130,6 +140,10 @@ namespace Onds.Niconico.UI
 
                     case NiconicoWebTextSegmentType.HtmlAnchorElement:
                         applyAnchorLinkToInline(span.Inlines, segment, args, sourceText);
+                        break;
+
+                    case NiconicoWebTextSegmentType.HtmlBoldElement:
+
                         break;
 
                     default:
