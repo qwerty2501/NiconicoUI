@@ -9,12 +9,11 @@ namespace Onds.Niconico.UI
 {
     internal class ViewNiconicoWebTextArgs
     {
-        internal ViewNiconicoWebTextArgs(bool viewFriendly,bool enableFontElementSize,Action<object, IReadOnlyNiconicoWebTextSegment> clickAction,ViewNiconicoTextType viewType)
+        internal ViewNiconicoWebTextArgs(bool viewFriendly,bool enableFontElementSize,Action<object, IReadOnlyNiconicoWebTextSegment> clickAction)
         {
             this.ViewFriendly = viewFriendly;
             this.EnableFontElementSize = enableFontElementSize;
             this.ClicAction = clickAction;
-            this.ViewType = viewType;
         }
 
         internal bool ViewFriendly { get; private set; }
@@ -22,7 +21,5 @@ namespace Onds.Niconico.UI
         internal bool EnableFontElementSize { get; private set; }
 
         internal Action<object, IReadOnlyNiconicoWebTextSegment> ClicAction { get; private set; }
-
-        internal ViewNiconicoTextType ViewType { get; private set; }
     }
 }

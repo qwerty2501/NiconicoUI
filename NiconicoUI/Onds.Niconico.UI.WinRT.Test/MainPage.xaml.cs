@@ -31,10 +31,7 @@ namespace Onds.Niconico.UI.WinRT.Test
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.NiconicoWebText.Text = @"test
-                                          test
-                                          cccc" + index;
-
+            this.NiconicoWebText.Text = "<b>boldText</b>";
 
         }
     }

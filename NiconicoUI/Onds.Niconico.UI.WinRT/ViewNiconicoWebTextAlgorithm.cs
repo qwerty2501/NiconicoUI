@@ -60,7 +60,7 @@ namespace Onds.Niconico.UI
         private static void applyAnchorLinkToInlines<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args, object sourceText)
             where T : IReadOnlyNiconicoWebTextSegment
         {
-            if (args.ViewFriendly && args.ViewType == ViewNiconicoTextType.Comment)
+            if (args.ViewFriendly)
             {
                 applyLinkToInlineBase(inlines, segment, args, sourceText, (link) =>
                 {
@@ -71,13 +71,13 @@ namespace Onds.Niconico.UI
             {
                 var span = new Span();
                 span.Inlines.Add(new Run { Text = NiconicoWebTextConstant.htmlAnchorStart });
-                applyLinkToInlineBase(inlines, segment, args, sourceText, (link) =>
+                applyLinkToInlineBase(span.Inlines, segment, args, sourceText, (link) =>
                 {
                     link.Inlines.Add(new Run { Text = segment.Url.OriginalString });
                 });
                 span.Inlines.Add(new Run { Text = NiconicoWebTextConstant.htmlAnchorEnd });
                 applyToSpan(span, segment.Segments, args, sourceText);
-
+                inlines.Add(span);
             }
 
             
@@ -125,6 +125,7 @@ namespace Onds.Niconico.UI
             {
                 var bold = new Bold();
                 applyToSpan(bold, segment.Segments, args, sourceText);
+                inlines.Add(bold);
             }
             else
             {
@@ -132,6 +133,7 @@ namespace Onds.Niconico.UI
                 span.Inlines.Add(new Run { Text = NiconicoWebTextConstant.htmlBoldElementStart });
                 applyToSpan(span, segment.Segments, args, sourceText);
                 span.Inlines.Add(new Run { Text = NiconicoWebTextConstant.htmlBoldElementEnd });
+                inlines.Add(span);
             }
         }
 
@@ -171,7 +173,7 @@ namespace Onds.Niconico.UI
                         break;
 
                     case NiconicoWebTextSegmentType.HtmlBoldElement:
-
+                        applyBoldElementToInlines(span.Inlines, segment, args, sourceText);
                         break;
 
                     default:

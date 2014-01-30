@@ -133,7 +133,7 @@ namespace Onds.Niconico.UI
         {
             var text = this.Text;
 
-            ViewNiconicoWebTextAlgorithm.UpdateViewText(this, text, OnParseText, new ViewNiconicoWebTextArgs(this.ViewFriendly,this.EnableFontElementSize,onSegmentClick,ViewNiconicoTextType.WebText));
+            ViewNiconicoWebTextAlgorithm.UpdateViewText(this, text, OnParseText, new ViewNiconicoWebTextArgs(this.ViewFriendly,this.EnableFontElementSize,onSegmentClick));
         }
 
         private void onSegmentClick(object text, IReadOnlyNiconicoWebTextSegment segment)
