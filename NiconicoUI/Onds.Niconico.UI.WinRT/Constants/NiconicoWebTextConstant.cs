@@ -14,7 +14,11 @@ namespace Onds.Niconico.UI.Constants
 
         internal const string htmlAnchorStart = htmlElementStart + @"a href=""";
 
-        internal const string htmlAnchorEnd = @"</a>";
+        internal const string htmlAnchorEnd = htmlBoldElementStart + "/a" + htmlElementEnd;
+
+        internal const string htmlBoldElementStart = htmlElementEnd + "b" + htmlElementEnd;
+
+        internal const string htmlBoldElementEnd = htmlBoldElementStart + "/b" + htmlElementEnd;
 
     }
 }

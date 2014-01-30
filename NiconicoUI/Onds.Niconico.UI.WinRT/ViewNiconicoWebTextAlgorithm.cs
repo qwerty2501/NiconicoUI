@@ -60,7 +60,7 @@ namespace Onds.Niconico.UI
         private static void applyAnchorLinkToInlines<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args, object sourceText)
             where T : IReadOnlyNiconicoWebTextSegment
         {
-            if (args.ViewFriendly)
+            if (args.ViewFriendly && args.ViewType == ViewNiconicoTextType.Comment)
             {
                 applyLinkToInlineBase(inlines, segment, args, sourceText, (link) =>
                 {
@@ -116,11 +116,23 @@ namespace Onds.Niconico.UI
             }
         }
 
-        private static void applyFontElementToInlines<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args, object sourceText)
+        private static void applyBoldElementToInlines<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args, object sourceText)
             where T : IReadOnlyNiconicoWebTextSegment
         {
 
 
+            if (args.ViewFriendly)
+            {
+                var bold = new Bold();
+                applyToSpan(bold, segment.Segments, args, sourceText);
+            }
+            else
+            {
+                var span = new Span();
+                span.Inlines.Add(new Run { Text = NiconicoWebTextConstant.htmlBoldElementStart });
+                applyToSpan(span, segment.Segments, args, sourceText);
+                span.Inlines.Add(new Run { Text = NiconicoWebTextConstant.htmlBoldElementEnd });
+            }
         }
 
 
