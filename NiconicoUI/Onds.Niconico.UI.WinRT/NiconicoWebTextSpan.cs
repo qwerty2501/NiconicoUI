@@ -124,7 +124,8 @@ namespace Onds.Niconico.UI
             }
         }
 
-        internal static string GetViewString(IReadOnlyNiconicoWebTextSegment segment, bool viewFriendly)
+        internal static string GetViewString<T>(T segment, bool viewFriendly)
+            where T:IReadOnlyNiconicoWebTextSegment
         {
             if (viewFriendly)
             {
@@ -135,6 +136,8 @@ namespace Onds.Niconico.UI
                 return segment.Text;
             }
         }
+
+        private static void applyLinkTextToInline(Inline inline,)
 
 
         internal static void ApplyToSpan(Span span, IReadOnlyList<IReadOnlyNiconicoWebTextSegment> segments,bool viewFriendly)
