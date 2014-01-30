@@ -3,6 +3,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Markup;
 using Windows.Foundation;
+using ClickEventHandler = Windows.Foundation.TypedEventHandler<Onds.Niconico.UI.NiconicoWebTextSpan, Onds.Niconico.UI.NiconicoWebTextSegmentClickEventArgs>;
 #endif
 
 using System;
@@ -27,8 +28,8 @@ namespace Onds.Niconico.UI
            
         }
 
-        
-        
+        public event ClickEventHandler SegmentClick;
+
 
         #region InlinesDependencyProperty
 
@@ -132,7 +133,15 @@ namespace Onds.Niconico.UI
         {
             var text = this.Text;
 
-            ViewNiconicoWebTextAlgorithm.UpdateViewText(this, text, OnParseText, new ViewNiconicoWebTextArgs(this.ViewFriendly,this.EnableFontElementSize));
+            ViewNiconicoWebTextAlgorithm.UpdateViewText(this, text, OnParseText, new ViewNiconicoWebTextArgs(this.ViewFriendly,this.EnableFontElementSize,onSegmentClick));
+        }
+
+        private void onSegmentClick(object text, IReadOnlyNiconicoWebTextSegment segment)
+        {
+            if (this.SegmentClick != null)
+            {
+                this.SegmentClick(this, new NiconicoWebTextSegmentClickEventArgs(text, segment));
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Onds.Niconico.UI
         internal static void UpdateViewText(Span span, object text, Func<string, IReadOnlyList<IReadOnlyNiconicoWebTextSegment>> parseFunc, ViewNiconicoWebTextArgs args)
         {
             span.Inlines.Clear();
-            applyToSpan(span, textToSegments(text, parseFunc), args);
+            applyToSpan(span, textToSegments(text, parseFunc), args,text);
         }
 
         private static IReadOnlyList<IReadOnlyNiconicoWebTextSegment> textToSegments(object text, Func<string, IReadOnlyList<IReadOnlyNiconicoWebTextSegment>> parseFunc)
@@ -46,11 +46,34 @@ namespace Onds.Niconico.UI
             }
         }
 
-        private static void applyLinkSegmentToInline<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args)
+        private static void applyLinkSegmentToInline<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args,object sourceText)
+            where T : IReadOnlyNiconicoWebTextSegment
+        {
+
+            applyLinkToInlineBase(inlines, segment, args, sourceText, (link) =>
+            {
+                link.Inlines.Add(new Run { Text = getViewString(segment, args) });
+            });
+        }
+
+        private static void applyAnchorLinkToInline<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args, object sourceText)
+            where T : IReadOnlyNiconicoWebTextSegment
+        {
+            applyLinkToInlineBase(inlines, segment, args, sourceText, (link) =>
+            {
+                applyToSpan(link, segment.Segments, args, sourceText);
+            });
+        }
+
+        private static void applyLinkToInlineBase<T>(InlineCollection inlines, T segment, ViewNiconicoWebTextArgs args, object sourceText, Action<Hyperlink> addAction)
             where T : IReadOnlyNiconicoWebTextSegment
         {
             var link = new Hyperlink();
-            link.Inlines.Add(new Run { Text = getViewString(segment, args) });
+            link.Click += (hyperLink, clickArgs) =>
+            {
+                args.ClicAction(sourceText, segment);
+            };
+            addAction(link);
             inlines.Add(link);
         }
 
@@ -75,7 +98,7 @@ namespace Onds.Niconico.UI
             }
         }
 
-        private static void applyToSpan<T>(Span span, IReadOnlyList<T> segments, ViewNiconicoWebTextArgs args)
+        private static void applyToSpan<T>(Span span, IReadOnlyList<T> segments, ViewNiconicoWebTextArgs args,object sourceText)
             where T : IReadOnlyNiconicoWebTextSegment
         {
             foreach (var segment in segments)
@@ -93,7 +116,7 @@ namespace Onds.Niconico.UI
                     case NiconicoWebTextSegmentType.Url:
                     case NiconicoWebTextSegmentType.UserName:
                     case NiconicoWebTextSegmentType.VideoId:
-                        applyLinkSegmentToInline(span.Inlines, segment, args);
+                        applyLinkSegmentToInline(span.Inlines, segment, args,sourceText);
                         break;
 
                     case NiconicoWebTextSegmentType.Plain:
@@ -106,7 +129,7 @@ namespace Onds.Niconico.UI
                         break;
 
                     case NiconicoWebTextSegmentType.HtmlAnchorElement:
-
+                        applyAnchorLinkToInline(span.Inlines, segment, args, sourceText);
                         break;
 
                     default:

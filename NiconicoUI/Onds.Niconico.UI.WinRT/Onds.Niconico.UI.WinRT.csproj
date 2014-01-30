@@ -108,6 +108,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extentions\INiconicoWebTextSegmentExtention.cs" />
     <Compile Include="NiconicoWebTextSegmentClickEventArgs.cs" />
     <Compile Include="NiconicoWebTextSpan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -18,7 +18,8 @@
                 <Run>
                     text
                 </Run>
-                <nc:NiconicoWebTextSpan x:Name="NiconicoWebText">
+               
+                <nc:NiconicoWebTextSpan x:Name="NiconicoWebText" >
                     test
                     tec
                 </nc:NiconicoWebTextSpan>
