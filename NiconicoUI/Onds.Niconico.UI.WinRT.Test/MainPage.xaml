@@ -9,15 +9,22 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <RichTextBlock FontSize="120">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <RichTextBlock x:Name="RichTextBlock" FontSize="50">
             <Paragraph>
                 <Run>
                     text
                 </Run>
-                <nc:NiconicoWebTextSpan>
+                <nc:NiconicoWebTextSpan x:Name="NiconicoWebText">
                     test
+                    tec
                 </nc:NiconicoWebTextSpan>
             </Paragraph>
         </RichTextBlock>
+        
+        <Button Grid.Row="1" FontSize="160" Content="Change" Click="Button_Click"/>
     </Grid>
 </Page>

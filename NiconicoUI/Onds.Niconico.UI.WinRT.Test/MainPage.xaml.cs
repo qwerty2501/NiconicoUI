@@ -26,5 +26,16 @@ namespace Onds.Niconico.UI.WinRT.Test
         {
             this.InitializeComponent();
         }
+
+        int index = 0;
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.NiconicoWebText.Text = @"test
+                                          test
+                                          cccc" + index;
+
+
+        }
     }
 }

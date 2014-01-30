@@ -8,11 +8,14 @@ namespace Onds.Niconico.UI
 {
     internal class ViewNiconicoWebTextArgs
     {
-        internal ViewNiconicoWebTextArgs(bool viewFriendly)
+        internal ViewNiconicoWebTextArgs(bool viewFriendly,bool enableFontElementSize)
         {
             this.ViewFriendly = viewFriendly;
+            this.EnableFontElementSize = enableFontElementSize;
         }
 
         internal bool ViewFriendly { get; private set; }
+
+        internal bool EnableFontElementSize { get; private set; }
     }
 }
