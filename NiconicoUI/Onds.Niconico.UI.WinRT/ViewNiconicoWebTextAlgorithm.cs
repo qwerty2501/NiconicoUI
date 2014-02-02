@@ -211,6 +211,24 @@ namespace Onds.Niconico.UI
             }
         }
 
+        private static void applyStrikeElementToInlines(InlineCollection inlines, IReadOnlyNiconicoWebTextSegment segment, ViewNiconicoWebTextArgs args, object sourceText)
+        {
+            if (args.ViewFriendly)
+            {
+                var strike = new Span();
+                applyToSpan(strike, segment.Segments, args, sourceText);
+                inlines.Add(strike);
+            }
+            else
+            {
+                var span = new Span();
+                span.Inlines.Add(new Run { Text = NiconicoWebTextStrings.htmlStrikeElementStart });
+                applyToSpan(span, segment.Segments, args, sourceText);
+                span.Inlines.Add(new Run { Text = NiconicoWebTextStrings.htmlStrikeElementEnd });
+                inlines.Add(span);
+            }
+        }
+
         private static void applyToSpan(Span span, IReadOnlyList<IReadOnlyNiconicoWebTextSegment> segments, ViewNiconicoWebTextArgs args,object sourceText)
         {
             foreach (var segment in segments)
@@ -260,6 +278,10 @@ namespace Onds.Niconico.UI
                         applyUnderLineToInlines(span.Inlines, segment, args, sourceText);
                         break;
 
+                    case NiconicoWebTextSegmentType.HtmlStrikeElement:
+                        applyStrikeElementToInlines(span.Inlines, segment, args, sourceText);
+                        break;
+
                     default:
                         throw new NotImplementedException("Not Implemented view segment.");
                 }
@@ -267,6 +289,8 @@ namespace Onds.Niconico.UI
 
 
         }
+
+        
 
         
 
