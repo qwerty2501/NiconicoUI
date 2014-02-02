@@ -12,17 +12,19 @@ namespace Onds.Niconico.UI
     internal static class ViewNiconicoWebTextAlgorithm
     {
 
-        internal static void UpdateViewText(Span span, object text, Func<string, IReadOnlyList<IReadOnlyNiconicoWebTextSegment>> parseFunc, ViewNiconicoWebTextArgs args)
+        internal static void UpdateViewText<T>(Span span, object text, Func<string, IReadOnlyList<IReadOnlyNiconicoWebTextSegment>> parseFunc, ViewNiconicoWebTextArgs args)
+            where T : class,IReadOnlyNiconicoWebText
         {
             span.Inlines.Clear();
-            applyToSpan(span, textToSegments(text, parseFunc), args,text);
+            applyToSpan(span, textToSegments<T>(text, parseFunc), args,text);
         }
 
-        private static IReadOnlyList<IReadOnlyNiconicoWebTextSegment> textToSegments(object text, Func<string, IReadOnlyList<IReadOnlyNiconicoWebTextSegment>> parseFunc)
+        private static IReadOnlyList<IReadOnlyNiconicoWebTextSegment> textToSegments<T>(object text, Func<string, IReadOnlyList<IReadOnlyNiconicoWebTextSegment>> parseFunc)
+            where T : class,IReadOnlyNiconicoWebText
         {
-            if (text is IReadOnlyList<IReadOnlyNiconicoWebTextSegment>)
+            if (text is T)
             {
-                return text as IReadOnlyList<IReadOnlyNiconicoWebTextSegment>;
+                return (text as T).Segments;
             }
             else if (text is string)
             {

@@ -22,9 +22,9 @@ namespace Onds.Niconico.UI
     [ContentProperty(Name="Text")]
     public sealed class NiconicoWebTextSpan:Span
     {
-        internal IReadOnlyList<IReadOnlyNiconicoWebTextSegment> OnParseText(string text)
+        internal static IReadOnlyList<IReadOnlyNiconicoWebTextSegment> OnParseText(string text)
         {
-            return NiconicoTextSegmenter.DivideToWebTextSegments(text);
+            return NiconicoTextParser.ParseWebText(text).Segments;
            
         }
 
@@ -133,7 +133,7 @@ namespace Onds.Niconico.UI
         {
             var text = this.Text;
 
-            ViewNiconicoWebTextAlgorithm.UpdateViewText(this, text, OnParseText, new ViewNiconicoWebTextArgs(this.ViewFriendly,this.EnableFontElementSize,onSegmentClick));
+            ViewNiconicoWebTextAlgorithm.UpdateViewText<IReadOnlyNiconicoWebText>(this, text, OnParseText, new ViewNiconicoWebTextArgs(this.ViewFriendly,this.EnableFontElementSize,onSegmentClick));
         }
 
         private void onSegmentClick(object text, IReadOnlyNiconicoWebTextSegment segment)
