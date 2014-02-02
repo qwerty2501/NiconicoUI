@@ -147,7 +147,10 @@ namespace Onds.Niconico.UI
 
             if (args.ViewFriendly)
             {
-                span.FontSize = segment.CorrectToFontElementSize(args.RootSpan.FontSize);
+                if (segment.DecoratedFontElementSize)
+                {
+                    span.FontSize = segment.CorrectToFontElementSize(args.RootSpan.FontSize);
+                }
 
                 if (segment.DecoratedColor)
                 {
@@ -160,10 +163,11 @@ namespace Onds.Niconico.UI
             }
             else
             {
-                
 
-                span.Inlines.Add(new Run { Text = NiconicoWebTextStrings.htmlFontElementStart });
 
+                span.Inlines.Add(new Run { Text = NiconicoWebTextStrings.CreateFontElementStart(segment) });
+                applyToSpan(span, segment.Segments, args, sourceText);
+                span.Inlines.Add(new Run { Text = NiconicoWebTextStrings.htmlFontElementEnd });
 
             }
 
