@@ -25,7 +25,10 @@ namespace Onds.Niconico.UI.WinRT.Test
         public MainPage()
         {
             this.InitializeComponent();
-            this.NiconicoWebText.Text = "<b>boldText</b><font size=\"7\">FontSize7</font><font color=\"red\">redText</font><font size=\"1\">FontSize1</font><i>italic</i>";
+            this.NiconicoWebText.Text = "plainText<b>boldText</b><font size=\"7\">FontSize 7</font><font color=\"red\">redText</font>\r\n<font size=\"1\">FontSize 1</font><i>italic</i><u>underLine</u>\r\n<font size=\"-1\">FontSize-1</font><font size=\"+2\">FontSize+2</font>\r\n" +
+                                        "\\r\\n:\r\n\\n:\nLineBreak:<br>" +
+                                        "videoId:sm17962764,liveId:lv168019406,communityId:co2268671\r\n" +
+                                        "<a href=\"http://www.nicovideo.jp/watch/sm21920779\">非コメントの場合aタグはそのままひょうじされる</a>";
         }
 
 

@@ -194,6 +194,22 @@ namespace Onds.Niconico.UI
             }
         }
 
+        private static void applyUnderLineToInlines(InlineCollection inlines, IReadOnlyNiconicoWebTextSegment segment, ViewNiconicoWebTextArgs args, object sourceText)
+        {
+            if (args.ViewFriendly)
+            {
+                var underLine = new Underline();
+                applyToSpan(underLine, segment.Segments, args, sourceText);
+                inlines.Add(underLine);
+            }
+            else
+            {
+                var span = new Span();
+                span.Inlines.Add(new Run { Text = NiconicoWebTextStrings.htmlUnderLineElementStart });
+                applyToSpan(span, segment.Segments, args, sourceText);
+                span.Inlines.Add(new Run { Text = NiconicoWebTextStrings.htmlUnderLineElementEnd });
+            }
+        }
 
         private static void applyToSpan(Span span, IReadOnlyList<IReadOnlyNiconicoWebTextSegment> segments, ViewNiconicoWebTextArgs args,object sourceText)
         {
@@ -240,6 +256,10 @@ namespace Onds.Niconico.UI
                         applyItalicElementToInlines(span.Inlines, segment, args, sourceText);
                         break;
 
+                    case NiconicoWebTextSegmentType.HtmlUnderLineElement:
+                        applyUnderLineToInlines(span.Inlines, segment, args, sourceText);
+                        break;
+
                     default:
                         throw new NotImplementedException("Not Implemented view segment.");
                 }
@@ -247,6 +267,8 @@ namespace Onds.Niconico.UI
 
 
         }
+
+        
 
         
     }
