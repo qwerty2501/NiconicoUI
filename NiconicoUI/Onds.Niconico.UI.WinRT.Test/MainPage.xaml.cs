@@ -25,10 +25,10 @@ namespace Onds.Niconico.UI.WinRT.Test
         public MainPage()
         {
             this.InitializeComponent();
-            this.NiconicoWebText.Text = "<b>boldText</b><font size=\"7\">FontSize7</font><font color=\"red\">redText</font><font size=\"1\">FontSize1</font>";
+            this.NiconicoWebText.Text = "<b>boldText</b><font size=\"7\">FontSize7</font><font color=\"red\">redText</font><font size=\"1\">FontSize1</font><i>italic</i>";
         }
 
-        int index = 0;
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

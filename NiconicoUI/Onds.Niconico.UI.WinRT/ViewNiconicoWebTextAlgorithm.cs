@@ -176,6 +176,24 @@ namespace Onds.Niconico.UI
             inlines.Add(span);
         }
 
+        private static void applyItalicElementToInlines(InlineCollection inlines, IReadOnlyNiconicoWebTextSegment segment, ViewNiconicoWebTextArgs args, object sourceText)
+        {
+            if (args.ViewFriendly)
+            {
+                var italic = new Italic();
+                applyToSpan(italic, segment.Segments, args, sourceText);
+                inlines.Add(italic);
+                
+            }
+            else
+            {
+                var span = new Span();
+                span.Inlines.Add(new Run { Text = NiconicoWebTextStrings.htmlItalicElementStart });
+                applyToSpan(span, segment.Segments, args, sourceText);
+                span.Inlines.Add(new Run { Text = NiconicoWebTextStrings.htmlItalicElementEnd });
+            }
+        }
+
 
         private static void applyToSpan(Span span, IReadOnlyList<IReadOnlyNiconicoWebTextSegment> segments, ViewNiconicoWebTextArgs args,object sourceText)
         {
@@ -218,6 +236,10 @@ namespace Onds.Niconico.UI
                         applyFontElementToInlines(span.Inlines, segment, args, sourceText);
                         break;
 
+                    case NiconicoWebTextSegmentType.HtmlItalicElement:
+                        applyItalicElementToInlines(span.Inlines, segment, args, sourceText);
+                        break;
+
                     default:
                         throw new NotImplementedException("Not Implemented view segment.");
                 }
@@ -225,5 +247,7 @@ namespace Onds.Niconico.UI
 
 
         }
+
+        
     }
 }
