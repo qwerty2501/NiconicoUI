@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Onds.Niconico.Data.Text;
 
 
-namespace Onds.Niconico.UI
+namespace Onds.Niconico.UI.Xaml.Documents
 {
     /// <summary>
     /// Niconico web text segment click evnet args.

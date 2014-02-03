@@ -28,7 +28,8 @@ namespace Onds.Niconico.UI.WinRT.Test
             this.NiconicoWebText.Text = "plainText<b>boldText</b><font size=\"7\">FontSize 7</font><font color=\"red\">redText</font>\r\n<font size=\"1\">FontSize 1</font><i>italic</i><u>underLine</u>\r\n<font size=\"-1\">FontSize-1</font><font size=\"+2\">FontSize+2</font>\r\n" +
                                         "\\r\\n:\r\n\\n:\nLineBreak:<br>" +
                                         "videoId:sm17962764,liveId:lv168019406,communityId:co2268671\r\n" +
-                                        "<s>strike</s>";
+                                        "<a href=\"http://www.nicovideo.jp/watch/sm22704573\">aタグはそのままだよ</a>\r\n"+
+                                        "<s>打消し線なくて＼(^o^)／</s>";
         }
 
 

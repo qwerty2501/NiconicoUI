@@ -3,7 +3,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Markup;
 using Windows.Foundation;
-using ClickEventHandler = Windows.Foundation.TypedEventHandler<Onds.Niconico.UI.NiconicoWebTextSpan, Onds.Niconico.UI.NiconicoWebTextSegmentClickEventArgs>;
+using ClickEventHandler = Windows.Foundation.TypedEventHandler<Onds.Niconico.UI.Xaml.Documents.NiconicoWebTextSpan, Onds.Niconico.UI.Xaml.Documents.NiconicoWebTextSegmentClickEventArgs>;
 #endif
 
 using System;
@@ -16,7 +16,7 @@ using Onds.Niconico.Data.Text;
 
 
 
-namespace Onds.Niconico.UI
+namespace Onds.Niconico.UI.Xaml.Documents
 {
 
     [ContentProperty(Name="Text")]

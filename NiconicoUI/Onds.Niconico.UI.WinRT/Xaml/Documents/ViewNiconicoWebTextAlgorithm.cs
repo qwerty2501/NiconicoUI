@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using Onds.Niconico.UI.Extentions;
 
 
-namespace Onds.Niconico.UI
+namespace Onds.Niconico.UI.Xaml.Documents
 {
     internal static class ViewNiconicoWebTextAlgorithm
     {
