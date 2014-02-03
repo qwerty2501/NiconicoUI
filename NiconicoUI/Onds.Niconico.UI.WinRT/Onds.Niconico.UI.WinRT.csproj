@@ -110,12 +110,12 @@
   <ItemGroup>
     <Compile Include="Constants\NiconicoWebTextStrings.cs" />
     <Compile Include="Extentions\INiconicoWebTextSegmentExtention.cs" />
-    <Compile Include="Xaml\Documents\NiconicoWebTextSegmentClickEventArgs.cs" />
-    <Compile Include="Xaml\Documents\NiconicoWebTextSpan.cs" />
+    <Compile Include="Xaml\Text\NiconicoWebTextSegmentClickEventArgs.cs" />
+    <Compile Include="Xaml\Text\NiconicoWebTextSpan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extentions\NiconicoTextColorExtentions.cs" />
-    <Compile Include="Xaml\Documents\ViewNiconicoWebTextAlgorithm.cs" />
-    <Compile Include="Xaml\Documents\ViewNiconicoWebTextArgs.cs" />
+    <Compile Include="Xaml\Text\ViewNiconicoWebTextAlgorithm.cs" />
+    <Compile Include="Xaml\Text\ViewNiconicoWebTextArgs.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Onds.Niconico.UI.Xaml.Documents
+namespace Onds.Niconico.UI.Xaml.Text
 {
     internal class ViewNiconicoWebTextArgs
     {

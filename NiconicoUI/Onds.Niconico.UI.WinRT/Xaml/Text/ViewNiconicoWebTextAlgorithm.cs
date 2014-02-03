@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using Onds.Niconico.UI.Extentions;
 
 
-namespace Onds.Niconico.UI.Xaml.Documents
+namespace Onds.Niconico.UI.Xaml.Text
 {
     internal static class ViewNiconicoWebTextAlgorithm
     {
@@ -229,6 +229,19 @@ namespace Onds.Niconico.UI.Xaml.Documents
             }
         }
 
+        private static void applyInvalidElementToInlines(InlineCollection inlines, IReadOnlyNiconicoWebTextSegment segment, ViewNiconicoWebTextArgs args, object sourceText)
+        {
+            if (!args.ViewFriendly)
+            {
+                var span = new Span();
+                
+                span.Inlines.Add(new Run { Text = NiconicoWebTextStrings.htmlElementStart });
+                applyToSpan(span, segment.Segments, args, sourceText);
+                span.Inlines.Add(new Run { Text = NiconicoWebTextStrings.htmlElementEnd });
+                inlines.Add(span);
+            }
+        }
+
         private static void applyToSpan(Span span, IReadOnlyList<IReadOnlyNiconicoWebTextSegment> segments, ViewNiconicoWebTextArgs args,object sourceText)
         {
             foreach (var segment in segments)
@@ -282,6 +295,10 @@ namespace Onds.Niconico.UI.Xaml.Documents
                         applyStrikeElementToInlines(span.Inlines, segment, args, sourceText);
                         break;
 
+                    case NiconicoWebTextSegmentType.HtmlInvalidElement:
+                        applyInvalidElementToInlines(span.Inlines, segment, args, sourceText);
+                        break;
+
                     default:
                         throw new NotImplementedException("Not Implemented view segment.");
                 }
@@ -289,6 +306,8 @@ namespace Onds.Niconico.UI.Xaml.Documents
 
 
         }
+
+        
 
         
 
